@@ -1,12 +1,10 @@
-# block3-adv-web
+# Demos for class
 
-block 3: advanced web programming
+## List of pages from in class demo
 
-List of pages from in class demo
-
-basics.php : php basics
-palindrome.php : palindrome exercise
-objects-basics.php : OOP Intro
-objects-ex-sample.php : Generic version of an Object / class
-objects-exercise : Object Exercise
-logic.php : using invert / not of an expression
+- basics.php : php basics
+- palindrome.php : palindrome exercise
+- objects-basics.php : OOP Intro
+- objects-ex-sample.php : Generic version of an Object / class
+- objects-exercise : Object Exercise
+- logic.php : using invert / not of an expression
