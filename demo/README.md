@@ -7,4 +7,3 @@
 - objects-basics.php : OOP Intro
 - objects-ex-sample.php : Generic version of an Object / class
 - objects-exercise : Object Exercise
-- logic.php : using invert / not of an expression
