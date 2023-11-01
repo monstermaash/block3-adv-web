@@ -15,12 +15,12 @@ class Umbrella
     $this->isBroken = $isBroken;
   }
 
-  public function open()
+  private function open()
   {
     $this->isOpen = true;
   }
 
-  public function close()
+  private function close()
   {
     $this->isOpen = false;
   }
