@@ -85,3 +85,11 @@ $account3 = new BankAccount("Peter", 2);
 echo "account3 id: ", $account3->getId(), "<br>", " owner: ", $account3->getOwner();
 echo "<br>";
 echo "Balance: ", $account3->getBalance();
+
+echo "<br>";
+echo "<br>";
+
+$account4 = new BankAccount("Typed", 2);
+echo "account4 id: ", $account4->getId(), "<br>", " owner: ", $account4->getOwner();
+echo "<br>";
+echo "Balance: ", $account4->getBalance();
