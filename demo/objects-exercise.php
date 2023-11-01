@@ -12,7 +12,7 @@ class Umbrella
   {
     $this->isOpen = false;
     $this->color = $color;
-    $this->isBroken = $isBroken;
+    $this->isBroken = $isBroken; //normally, this should not be a property. people dont want to buy a broken umbrella 😂
   }
 
   private function open()
