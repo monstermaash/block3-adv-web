@@ -1,0 +1,16 @@
+@startuml
+
+class BankAccount {
+  accountNumber
+  overdraft = 100
+  owner
+  balance = 0
+  __construct(owner, balance = 0)
+  getOwner()
+  getId()
+  getBalance()
+  setBalance(balance)
+  deposit(amount)
+  withdrawal(amount)
+}
+@enduml
