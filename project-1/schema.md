@@ -24,7 +24,7 @@
 
   | petID | petName    | breedID | adoptionPrice |
   | ----- | ---------- | ------- | ------------- |
-  | P1    | Garfield   | B1      | 5             |
+  | P1    | Garfield   | B1      | 500           |
   | P2    | Brian      | B2      | 50            |
   | P3    | Scooby Doo | B3      | 15            |
   | P4    | Snoopy     | B4      | 24            |

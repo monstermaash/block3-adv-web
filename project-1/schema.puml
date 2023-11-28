@@ -1,0 +1,69 @@
+@startuml
+
+class Species {
+  # species_id
+  # species_name
+  + __construct(id, name)
+  + getId()
+  + getName()
+}
+
+class Breeds {
+  # breed_id
+  # breed_name
+  # species_id
+  + __construct(id, name, speciesId)
+  + getId()
+  + getName()
+  + getSpeciesId()
+}
+
+class Pets {
+  # pet_id
+  # pet_name
+  # breed_id
+  # price
+  + __construct(id, name, breedId, price)
+  + getId()
+  + getName()
+  + getBreedId()
+  + getPrice()
+}
+
+class Dog extends Pets {
+  # size
+  + __construct(id, name, breedId, price, size)
+  + getSize()
+  + bark()
+  + fetch()
+}
+
+class Cat extends Pets {
+  # fur_type
+  + __construct(id, name, breedId, price, furType)
+  + getFurType()
+  + meow()
+  + playWithToy()
+}
+
+class Duck extends Pets {
+  # feather_color
+  + __construct(id, name, breedId, price, featherColor)
+  + getFeatherColor()
+  + quack()
+  + swim()
+}
+
+class Toys {
+  # toy_id
+  # toy_name
+  # applicable_species
+  # price
+  + __construct(id, name, species, price)
+  + getId()
+  + getName()
+  + getApplicableSpecies()
+  + getPrice()
+}
+
+@enduml
