@@ -1,29 +1,29 @@
 @startuml
 
 class Species {
-  # species_id
-  # species_name
-  + __construct(id, name)
+  # speciesId
+  # speciesName
+  + __construct(speciesId, speciesName)
   + getId()
   + getName()
 }
 
 class Breeds {
-  # breed_id
-  # breed_name
-  # species_id
-  + __construct(id, name, speciesId)
+  # breedId
+  # breedName
+  # speciesId
+  + __construct(breedId, breedName, speciesId)
   + getId()
   + getName()
   + getSpeciesId()
 }
 
 class Pets {
-  # pet_id
-  # pet_name
-  # breed_id
-  # price
-  + __construct(id, name, breedId, price)
+  # petId
+  # petName
+  # breedId
+  # adoptionPrice
+  + __construct(petId, petName, breedId, adoptionPrice)
   + getId()
   + getName()
   + getBreedId()
@@ -32,7 +32,7 @@ class Pets {
 
 class Dog extends Pets {
   # size
-  + __construct(id, name, breedId, price, size)
+  + __construct(petId, petName, breedId, adoptionPrice, size)
   + getSize()
   + bark()
   + fetch()
@@ -40,7 +40,7 @@ class Dog extends Pets {
 
 class Cat extends Pets {
   # fur_type
-  + __construct(id, name, breedId, price, furType)
+  + __construct(petId, petName, breedId, adoptionPrice, furType)
   + getFurType()
   + meow()
   + playWithToy()
@@ -48,18 +48,18 @@ class Cat extends Pets {
 
 class Duck extends Pets {
   # feather_color
-  + __construct(id, name, breedId, price, featherColor)
+  + __construct(petId, petName, breedId, adoptionPrice, featherColor)
   + getFeatherColor()
   + quack()
   + swim()
 }
 
 class Toys {
-  # toy_id
-  # toy_name
-  # applicable_species
+  # toyId
+  # toyName
+  # species
   # price
-  + __construct(id, name, species, price)
+  + __construct(toyId, toyName, species, price)
   + getId()
   + getName()
   + getApplicableSpecies()
