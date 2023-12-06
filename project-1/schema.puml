@@ -1,69 +1,124 @@
 @startuml
 
 class Species {
-  # speciesId
+  # speciesID
   # speciesName
-  + __construct(speciesId, speciesName)
-  + getId()
+  + __construct(speciesID, speciesName)
+  + getID()
   + getName()
+}
+
+class Pricing {
+  # petID
+  # toyID
+  # adoptionPrice
+  # toysPrice
+  + __construct(adoptionPrice, toysPrice)
+  + getID()
+  + getAdoptionPrice()
+  + setAdoptionPrice()
+  + getToysPrice()
+  + setToysPrice()
 }
 
 class Breeds {
-  # breedId
-  # breedName
-  # speciesId
-  + __construct(breedId, breedName, speciesId)
-  + getId()
-  + getName()
-  + getSpeciesId()
+  # breedID
+  # breedType
+  # speciesID
+  # description
+  + __construct(breedID, breed, speciesID, description)
+  + getID()
+  + getBreedType()
+  + getSpeciesID()
+  + getDescription()
 }
 
 class Pets {
-  # petId
+  # petID
   # petName
-  # breedId
-  # adoptionPrice
-  + __construct(petId, petName, breedId, adoptionPrice)
-  + getId()
+  # breedType
+  # speciesID
+  # age
+  # gender
+  # description
+  # isVaccinated
+  # isTrained
+  + pricing
+  + __construct(petID, petName, breed, speciesID, age, gender, description, pricing, isVaccinated, isTrained)
+  + getID()
   + getName()
-  + getBreedId()
-  + getPrice()
+  + setName()
+  + getBreedType()
+  + getDescription()
+  + getPricing()
+  + eat()
+  + sleep()
+  + play()
+  + run()
+  + getIsVaccinated()
+  + setIsVaccinated()
+  + getIsTrained()
+  + setIsTrained()
 }
 
 class Dog extends Pets {
   # size
-  + __construct(petId, petName, breedId, adoptionPrice, size)
+  + __construct(petID, petName, breedType, speciesID, age, gender, description, pricing, isVaccinated, isTrained, size)
   + getSize()
   + bark()
   + fetch()
+  + swim()
 }
 
 class Cat extends Pets {
-  # fur_type
-  + __construct(petId, petName, breedId, adoptionPrice, furType)
+  # furType
+  + __construct(petID, petName, breedType, speciesID, age, gender, description, pricing, isVaccinated, isTrained, furType)
   + getFurType()
   + meow()
   + playWithToy()
 }
 
 class Duck extends Pets {
-  # feather_color
-  + __construct(petId, petName, breedId, adoptionPrice, featherColor)
+  # featherColor
+  + __construct(petID, petName, breedType, speciesID, age, gender, description, pricing, isVaccinated, isTrained, featherColor)
   + getFeatherColor()
   + quack()
   + swim()
+  + fly()
 }
 
 class Toys {
-  # toyId
+  # toyID
   # toyName
-  # species
-  # price
-  + __construct(toyId, toyName, species, price)
-  + getId()
+  # description
+  # applicableSpecies
+  + pricing
+  + __construct(toyID, toyName, description, applicableSpecies, pricing)
+  + getID()
   + getName()
   + getApplicableSpecies()
-  + getPrice()
+  + getPricing()
 }
 
+Species <|-- Toys
+Species --|> Breeds
+Breeds --|> Pets
+
+Toys --|> Pricing
+
 @enduml
+
+
+
+
+
+' extend toys to species to breeds to pets
+' add more properties for each classes (desc, color, age, gender)
+' maybe change breedName to breed (mixed/pure)
+' add more methods for each classes (eat, sleep, play, run, swim, fly, etc)
+' is vaccinated for pets, is trained for pets
+
+' class: species, breed, toys, pets, pricing
+'  
+
+
