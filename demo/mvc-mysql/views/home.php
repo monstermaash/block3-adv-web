@@ -1,12 +1,18 @@
-<?php
+<form action="">
+  <select name="" id="">
+    <option value="">Select a user</option>
 
-if ($users) {
-  foreach ($users as $user) {
-    echo $user['ID'] . " " . $user['name'] . " " . $user['email'] . "<br>";
-  }
-} else {
-  echo "no users found";
-}
-?>
 
-HOME
+    <?php
+
+    if ($users) {
+      foreach ($users as $user) {
+        echo "<option value=" .  $user['ID'] . ">" . $user['name'] . "</option>";
+      }
+    } else {
+      echo "no users found";
+    }
+    ?>
+
+  </select>
+</form>

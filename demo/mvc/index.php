@@ -8,11 +8,21 @@
 </head>
 
 <body>
-  <h1>
-    <?php
-    require_once("controllers/controller.php");
-    ?>
-  </h1>
+  <h1>MVC with mySQL</h1>
+  <?php
+  // require_once("controllers/controller.php");
+
+  include_once("controllers/controller.php");
+  // $connection1 = new connectionObject("localhost", "root", "", "mvc_demo");
+  // $controller = new Controller($connection1);
+  // $controller->start();
+  $connection2 = new connectionObject("localhost", "root", "", "mvc_demo");
+  $controller = new Controller($connection2);
+  $controller->start();
+  $controller->showForm();
+  echo $_POST["name"];
+  ?>
+
 </body>
 
 </html>
