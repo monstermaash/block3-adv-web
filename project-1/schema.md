@@ -14,25 +14,41 @@
 
 - breeds table: breedID (primary key), speciesID (foreign key)
 
-| breedID | breedType | speciesID | Description      |
+| breedID | breedType | speciesID | breedDescription |
 | ------- | --------- | --------- | ---------------- |
-| B1      | Pure      | 1         | Purebred Cat     |
-| B2      | Mixed     | 2         | Mixed Breed Dog  |
-| B1      | Pure      | 2         | Purebred Dog     |
-| B2      | Mixed     | 3         | Mixed Breed Duck |
+| 1       | Pure      | 1         | Purebred Cat     |
+| 2       | Mixed     | 2         | Mixed Breed Dog  |
+| 3       | Pure      | 2         | Purebred Dog     |
+| 4       | Mixed     | 3         | Mixed Breed Duck |
+
+## Size Table
+
+| sizeID | size   | sizeDescription                   |
+| ------ | ------ | --------------------------------- |
+| 1      | Small  | Suitable for apartment living     |
+| 2      | Medium | Adaptable to various environments |
+| 3      | Large  | Requires ample space and exercise |
+
+## FurSize Table
+
+| furSizeID | furType | furSizeDescription                   | sheddingLevel |
+| --------- | ------- | ------------------------------------ | ------------- |
+| 1         | Short   | Low maintenance, easy to groom       | Low           |
+| 2         | Medium  | Moderate-length, plush, soft coat    | Moderate      |
+| 3         | Long    | Luxurious, requires regular brushing | High          |
 
 ## Pets Table
 
 - pets table: petID (primary key), speciesID (foreign key)
 
-| petID | petName    | breedType | speciesID | age | gender | description                    |
-| ----- | ---------- | --------- | --------- | --- | ------ | ------------------------------ |
-| P1    | Garfield   | Pure      | 1         | 12  | male   | known for his love of lasagna. |
-| P2    | Brian      | Mixed     | 2         | 14  | male   | is always full of energy.      |
-| P3    | Scooby Doo | Pure      | 2         | 9   | male   | known for his love of snacks.  |
-| P4    | Snoopy     | Pure      | 2         | 6   | male   | has a vivid imagination.       |
-| P5    | Daffy      | Mixed     | 3         | 100 | male   | known for his animated antics. |
-| P6    | Daisy      | Pure      | 1         | 5   | female | is playful and gentle.         |
+| petID | petName    | breedType | speciesID | age | gender | petDescription                 | adoptionPricingID | isVaccinated | isTrained | size   | furType |
+| ----- | ---------- | --------- | --------- | --- | ------ | ------------------------------ | ----------------- | ------------ | --------- | ------ | ------- |
+| 1     | Garfield   | Pure      | 1         | 12  | Male   | known for his love of lasagna. | 1                 | Yes          | No        | Medium | Medium  |
+| 2     | Brian      | Mixed     | 2         | 14  | Male   | is always full of energy.      | 2                 | No           | Yes       | Medium | Medium  |
+| 3     | Scooby Doo | Pure      | 2         | 9   | Male   | known for his love of snacks.  | 3                 | Yes          | Yes       | Large  | Short   |
+| 4     | Snoopy     | Pure      | 2         | 6   | Male   | has a vivid imagination.       | 4                 | Yes          | Yes       | Small  | Short   |
+| 5     | Daffy      | Mixed     | 3         | 100 | Male   | known for his animated antics. | 5                 | No           | No        | Small  | Long    |
+| 6     | Daisy      | Pure      | 1         | 5   | Female | is playful and gentle.         | 5                 | Yes          | Yes       | Medium | Long    |
 
 ## Dog Table
 
@@ -40,18 +56,18 @@
 
 | petID | size   |
 | ----- | ------ |
-| P2    | Medium |
-| P3    | Large  |
-| P4    | Small  |
+| 2     | Medium |
+| 3     | Large  |
+| 4     | Small  |
 
 ## Cat Table
 
 - Cat table: petID (primary key)
 
-| petID | furType      |
-| ----- | ------------ |
-| P1    | long-haired  |
-| P6    | short-haired |
+| petID | furType |
+| ----- | ------- |
+| 1     | Long    |
+| 6     | Short   |
 
 ## Duck Table
 
@@ -59,29 +75,50 @@
 
 | petID | featherColor |
 | ----- | ------------ |
-| P5    | mixed        |
+| 5     | Mixed        |
 
 ## Toys Table
 
 - toys table: toyID (primary key)
 
-| toyID | toyName      | description                | applicableSpecies | toysPrice |
-| ----- | ------------ | -------------------------- | ----------------- | --------- |
-| T1    | Ball         | A classic ball for dogs.   | dogs              | 8         |
-| T2    | Chewing Toy  | Durable toy for chewing.   | dogs              | 14        |
-| T3    | Laser Pointe | Provides interactive play. | cats              | 7         |
-| T4    | Squeaky Toy  | Makes squeaky sounds.      | dogs              | 13        |
-| T5    | Feather Wand | Stimulating feather toy.   | cats              | 15        |
+| toyID | toyName       | toyDescription             | species | toysPricingID |
+| ----- | ------------- | -------------------------- | ------- | ------------- |
+| 1     | Ball          | A classic ball for dogs.   | Dogs    | 1             |
+| 2     | Chewing Toy   | Durable toy for chewing.   | Dogs    | 2             |
+| 3     | Laser Pointer | Provides interactive play. | Cats    | 3             |
+| 4     | Squeaky Toy   | Makes squeaky sounds.      | Dogs    | 4             |
+| 5     | Feather Wand  | Stimulating feather toy.   | Cats    | 5             |
 
-## Adoption Table
+## ToyPricing Table
+
+| toyPricingID | toyPrice |
+| ------------ | -------- |
+| 1            | 8        |
+| 2            | 14       |
+| 3            | 7        |
+| 4            | 13       |
+| 5            | 15       |
+
+## AdoptionPricing Table
+
+| adoptionPricingID | adoptionPrice |
+| ----------------- | ------------- |
+| 1                 | 500           |
+| 2                 | 600           |
+| 3                 | 1350          |
+| 4                 | 900           |
+| 5                 | 200           |
+| 6                 | 350           |
+
+<!-- ## Adoption Table
 
 - adoption table: petID (primary key)
 
 | petID | isTrained | isVaccinated | adoptionPrice |
 | ----- | --------- | ------------ | ------------- |
-| P1    | No        | Yes          | 500           |
-| P2    | Yes       | No           | 600           |
-| P3    | Yes       | Yes          | 1350          |
-| P4    | Yes       | Yes          | 900           |
-| P5    | No        | No           | 200           |
-| P6    | Yes       | Yes          | 350           |
+| 1     | No        | Yes          | 500           |
+| 2     | Yes       | No           | 600           |
+| 3     | Yes       | Yes          | 1350          |
+| 4     | Yes       | Yes          | 900           |
+| 5     | No        | No           | 200           |
+| 6     | Yes       | Yes          | 350           | -->

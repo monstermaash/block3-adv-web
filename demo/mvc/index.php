@@ -18,7 +18,7 @@
   // $controller->start();
   $connection2 = new connectionObject("localhost", "root", "", "mvc_demo");
   $controller = new Controller($connection2);
-  $controller->start();
+  // $controller->start();
   $controller->showForm();
   echo $_POST["name"];
   ?>
