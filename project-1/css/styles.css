@@ -70,7 +70,6 @@ textarea {
 input,
 textarea {
   width: calc(100% - 22px);
-  /* Adjusted to account for padding and border */
 }
 
 input[type="radio"],
@@ -78,7 +77,6 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
-/* Improved radio button styling */
 .gender {
   display: flex;
   flex-direction: column;
@@ -129,4 +127,18 @@ a:hover {
 
 textarea {
   resize: none;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  border: 1px solid #ccc;
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
 }

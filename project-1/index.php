@@ -18,6 +18,8 @@ Pass control to the appropriate file based on the request path. -->
   <!-- add controller -->
   <?php
   include_once("controllers/controller.php");
+  // Add this line to display the list of pets
+  $controller->showPets();
   ?>
 
 </body>

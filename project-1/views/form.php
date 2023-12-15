@@ -1,7 +1,3 @@
-<!-- Display the form elements for user input.
-Use action attribute to point to the controller script (e.g., action="controller.php").
-Validate user input before submitting the form. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +12,7 @@ Validate user input before submitting the form. -->
   <div class="container">
     <div class="row">
       <div class="left">
-        <form method="POST">
+        <form action="" method="POST">
           <label for="petName">Name:</label>
           <input type="text" name="petName" id="petName" required>
 
@@ -104,7 +100,7 @@ Validate user input before submitting the form. -->
     </div> <!-- end row -->
   </div> <!-- end container -->
 
-  <p><a href="home.php">See all pets</a></p>
+  <p><a href="views/home.php">See all pets</a></p>
 </body>
 
 </html>

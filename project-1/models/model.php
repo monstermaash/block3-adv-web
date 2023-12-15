@@ -41,7 +41,28 @@ class userModel
       return false;
     }
   }
+  public function selectAllPets()
+  {
+    $mysqli = $this->connect();
 
+    if ($mysqli) {
+      $result = $mysqli->query("SELECT * FROM pets");
+
+      $pets = [];
+
+      while ($row = $result->fetch_assoc()) {
+        $pets[] = $row;
+      }
+
+      $mysqli->close();
+      // Add this line for debugging
+      // var_dump($pets); 
+
+      return $pets;
+    } else {
+      return false;
+    }
+  }
   public function insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)
   {
     $mysqli = $this->connect();

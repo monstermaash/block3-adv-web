@@ -15,7 +15,7 @@ class Controller
   }
   public function showPets()
   {
-    $pets = $this->model->selectPets();
+    $pets = $this->model->selectAllPets();
     include 'views/home.php';
   }
   public function showForm()
