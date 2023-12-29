@@ -1,3 +1,8 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +10,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add a Pet!</title>
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
@@ -17,7 +23,7 @@
           <input type="text" name="petName" id="petName" required>
 
           <label for="species">Species:</label>
-          <select name="species" id="species" required>
+          <select name="speciesID" id="species" required>
             <option value="">Select Species</option>
             <option value="1">Dog</option>
             <option value="2">Cat</option>
@@ -25,11 +31,14 @@
           </select>
 
           <label for="breed">Breed:</label>
-          <select name="breed" id="breed" required>
+          <select name="breedID" id="breed" required>
             <option value="">Select Breed</option>
             <option value="1">Pure</option>
             <option value="2">Mixed</option>
           </select>
+
+          <label for="age">Age:</label>
+          <input type="number" min="1" max="999999" name="age" id="age" required>
 
           <fieldset>
             <label for="gender">Gender:</label>
@@ -44,27 +53,8 @@
 
           <br>
 
-          <fieldset>
-            <label for="isVaccinated">Vaccinated?</label>
-            <input type="checkbox" name="isVaccinated" id="isVaccinated" required>
-          </fieldset>
-
-          <br>
-
-          <label for="age">Age:</label>
-          <input type="number" min="1" max="30" name="age" id="age" required>
-
-
-
-          <label for="trained">Trained:</label>
-          <select name="trained" id="trained" required>
-            <option value="">Select Trained</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-
           <label for="size">Size:</label>
-          <select name="size" id="size" required>
+          <select name="sizeID" id="size" required>
             <option value="">Select Size</option>
             <option value="1">Small</option>
             <option value="2">Medium</option>
@@ -72,15 +62,29 @@
           </select>
 
           <label for="furType">Fur Type:</label>
-          <select name="furType" id="furType" required>
+          <select name="furTypeID" id="furType" required>
             <option value="">Select Fur Type</option>
             <option value="1">Short Hair</option>
             <option value="2">Medium Hair</option>
             <option value="3">Long Hair</option>
           </select>
 
+          <label for="isTrained">Trained:</label>
+          <select name="isTrained" id="trained" required>
+            <option value="">Select Trained</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+
+          <label for="isVaccinated">Vaccinated:</label>
+          <select name="isVaccinated" id="vaccinated" required>
+            <option value="">Select Trained</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+
           <label for="description">Description:</label>
-          <textarea name="description" id="description" rows="5" cols="30" maxlength="255" placeholder="Write a small description..." required></textarea>
+          <textarea name="petDescription" id="description" rows="5" cols="30" maxlength="255" placeholder="Write a small description..." required></textarea>
 
           <label for="adoptionPricingID">Adoption Price:</label>
           <select name="adoptionPricingID" id="adoptionPricingID" required>
@@ -91,16 +95,16 @@
             <option value="2">$600</option>
             <option value="4">$900</option>
             <option value="3">$1350</option>
+          </select>
 
-            <!-- <button type="submit" name="submit" id="submit">Add Pet</button> -->
-            <input class="submit-btn" type="submit" name="submit" value="Add Pet">
+          <input class="submit-btn" type="submit" name="submit" value="Add Pet">
         </form>
       </div> <!-- end left -->
       <div class="right">photo of pet</div>
     </div> <!-- end row -->
   </div> <!-- end container -->
 
-  <p><a href="views/home.php">See all pets</a></p>
+  <p><a href="index.php?controller=dashboard">See all pets</a></p>
 </body>
 
 </html>

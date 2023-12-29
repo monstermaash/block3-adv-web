@@ -8,9 +8,9 @@ Pass control to the appropriate file based on the request path. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MVC with mySQL</title>
+  <title>Pet store</title>
   <!-- css -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>

@@ -1,9 +1,8 @@
-<!-- Receive form data from form.php through POST requests.
-Pass the data to the appropriate model methods for processing (e.g., Pet::create()).
-Handle any errors or success scenarios returned by the model.
-Redirect users to the appropriate page (e.g., confirmation page, error page, or refreshed home page). -->
-
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include_once 'models/model.php';
 
 class Controller
@@ -15,8 +14,9 @@ class Controller
   }
   public function showPets()
   {
-    $pets = $this->model->selectAllPets();
-    include 'views/home.php';
+    // $pets = $this->model->selectAllPets();
+    // include 'views/home.php';
+    return $this->model->selectAllPets();
   }
   public function showForm()
   {
@@ -25,22 +25,20 @@ class Controller
   public function add()
   {
     try {
-      // Ensure that the form was submitted
       if (!isset($_POST['petName'])) {
         throw new Exception('Form not submitted properly.');
       }
 
-      // Extract form data
       $petName = $_POST['petName'];
-      $species = $_POST['species'];
-      $breed = $_POST['breed'];
+      $species = $_POST['speciesID'];
+      $breed = $_POST['breedID'];
       $gender = $_POST['gender'];
       $isVaccinated = isset($_POST['isVaccinated']) ? 'Yes' : 'No';
       $age = $_POST['age'];
-      $isTrained = $_POST['trained'];
-      $size = $_POST['size'];
-      $furType = $_POST['furType'];
-      $petDescription = $_POST['description'];
+      $isTrained = $_POST['isTrained'];
+      $size = $_POST['sizeID'];
+      $furType = $_POST['furTypeID'];
+      $petDescription = $_POST['petDescription'];
       $adoptionPrice = $_POST['adoptionPricingID'];
 
       // Validate form data
@@ -54,27 +52,83 @@ class Controller
       } else {
         throw new Exception('Could not add pet to the database.');
       }
-
-      // Redirect to show pets
-      $this->showPets();
     } catch (Exception $e) {
-      // Log the error and display a user-friendly message
-      echo '<p>Error: ' . $e->getMessage() . '</p>';
-      $this->showForm();
+      echo $e->getMessage();
+      echo var_dump($e);
+    }
+  }
+  public function editForm($petId)
+  {
+    $pet = $this->model->selectPetById($petId);
+    include 'views/edit-form.php';
+  }
+  public function update($petId)
+  {
+    // Get the updated data from the form
+    $updatedPetName = $_POST['petName'];
+    $updatedSpecies = $_POST['speciesID'];
+    $updatedBreed = $_POST['breedID'];
+    $updatedGender = $_POST['gender'];
+    $isVaccinatedUpdate = isset($_POST['isVaccinated']) ? 'Yes' : 'No';
+    $updatedAge = $_POST['age'];
+    $isTrainedUpdate = $_POST['isTrained'];
+    $updatedSize = $_POST['sizeID'];
+    $updatedFurType = $_POST['furTypeID'];
+    $updatedPetDescription = $_POST['petDescription'];
+    $updatedAdoptionPrice = $_POST['adoptionPricingID'];
+
+    // Call the model method to update the pet
+    $success = $this->model->updatePet(
+      $petId,
+      $updatedPetName,
+      $updatedSpecies,
+      $updatedBreed,
+      $updatedGender,
+      $isVaccinatedUpdate,
+      $updatedAge,
+      $isTrainedUpdate,
+      $updatedSize,
+      $updatedFurType,
+      $updatedPetDescription,
+      $updatedAdoptionPrice
+    );
+
+    if ($success) {
+      header('Location: index.php?controller=dashboard');
+      exit();
+    } else {
+      echo 'Update failed.';
     }
   }
 }
 
-$connection = new connectionObject("localhost", "petstore_user", "5bJ94ht4~", "petstore");
+$connection = new connectionObject("localhost", "petstore_db_user", "5bJ94ht4~", "petstore_db");
 $controller = new Controller($connection);
 
-// $controller->showPets();
-// $controller->showForm();
-// $controller->add();
-// if page gets information, add it
-// otherwise show form
-if (isset($_POST['petName'])) {
+if (isset($_POST['petName']) && isset($_GET['petID'])) {
+  $controller->update($_GET['petID']);
+} elseif (isset($_POST['petName'])) {
   $controller->add();
-} else {
-  $controller->showForm();
 }
+?>
+
+<?php
+
+if (!isset($_GET['controller']) || $_GET['controller'] == "home") {
+  include("views/welcome.php");
+} elseif ($_GET['controller'] == "login") {
+  include("views/login.php");
+} elseif ($_GET['controller'] == "dashboard") {
+  $pets = $controller->showPets();
+  include("views/dashboard.php");
+} elseif ($_GET['controller'] == "edit") {
+  $controller->editForm($_GET['petID']);
+} elseif ($_GET['controller'] == "logout") {
+  include("views/logout.php");
+} elseif ($_GET['controller'] == "form") {
+  $controller->showForm();
+} else {
+  include("views/404.php");
+}
+
+?>
