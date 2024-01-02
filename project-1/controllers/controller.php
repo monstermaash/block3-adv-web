@@ -48,7 +48,9 @@ class Controller
 
       // Call the model method to insert pet
       if ($this->model->insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)) {
-        echo "<p>Added pet: $petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice</p>";
+        $message = "$petName added successfully!";
+        header("Location: index.php?controller=dashboard&message=" . urlencode($message));
+        exit();
       } else {
         throw new Exception('Could not add pet to the database.');
       }
@@ -94,10 +96,25 @@ class Controller
     );
 
     if ($success) {
-      header('Location: index.php?controller=dashboard');
+      $petName = $this->model->selectPetById($petId)['petName'];
+      $message = "$petName updated successfully!";
+      header("Location: index.php?controller=dashboard&message=" . urlencode($message));
       exit();
     } else {
       echo 'Update failed.';
+    }
+  }
+  public function delete($petId)
+  {
+    $petName = $this->model->selectPetById($petId)['petName'];
+    $success = $this->model->deletePet($petId);
+
+    if ($success) {
+      $message = "$petName deleted successfully!";
+      header("Location: index.php?controller=dashboard&message=" . urlencode($message));
+      exit();
+    } else {
+      echo 'Delete failed.';
     }
   }
 }
@@ -109,7 +126,10 @@ if (isset($_POST['petName']) && isset($_GET['petID'])) {
   $controller->update($_GET['petID']);
 } elseif (isset($_POST['petName'])) {
   $controller->add();
+} elseif (isset($_GET['controller']) && $_GET['controller'] === 'delete' && isset($_GET['petID'])) {
+  $controller->delete($_GET['petID']);
 }
+
 ?>
 
 <?php

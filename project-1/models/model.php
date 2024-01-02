@@ -166,4 +166,40 @@ class userModel
 
     return true;
   }
+
+  public function deletePet($petId)
+  {
+    $mysqli = $this->connect();
+
+    if (!$mysqli) {
+      error_log("Error: Could not connect to the database.");
+      return false;
+    }
+
+    $query = "DELETE FROM pets WHERE petID = ?";
+    $stmt = $mysqli->prepare($query);
+
+    if (!$stmt) {
+      $mysqli->close();
+      return false;
+    }
+
+    $stmt->bind_param('i', $petId);
+
+    if (!$stmt->execute()) {
+      $error = $stmt->error;
+      $stmt->close();
+      $mysqli->close();
+
+      error_log("Error executing deletePet query: $error");
+      echo "Error executing deletePet query: $error";
+
+      return false;
+    }
+
+    $stmt->close();
+    $mysqli->close();
+
+    return true;
+  }
 }

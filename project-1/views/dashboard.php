@@ -3,6 +3,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 
+<?php
+if (isset($_GET['message'])) {
+  $message = urldecode($_GET['message']);
+  echo "<h3 class='confirmation-message'>$message</h3>";
+}
+?>
+
 <h1>Dashboard</h1>
 
 <a href="index.php?controller=logout">Logout</a>
@@ -33,7 +40,10 @@ ini_set('display_errors', 1);
           <p>Description: <?php echo $pet['petDescription']; ?></p>
           <p>Adoption Price: <?php echo $pet['adoptionPricingID']; ?></p>
 
-          <p><a href="index.php?controller=edit&petID=<?php echo $pet['petID']; ?>">Edit</a></p>
+          <div class="buttons">
+            <p><a class="btn" href="index.php?controller=edit&petID=<?php echo $pet['petID']; ?>">Edit</a></p>
+            <p><a class="btn" href="index.php?controller=delete&petID=<?php echo $pet['petID']; ?>" onclick="return confirmDelete('<?php echo $pet['petName']; ?>');">Delete</a></p>
+          </div>
 
         </div>
       <?php endforeach; ?>
@@ -59,6 +69,12 @@ ini_set('display_errors', 1);
           xhr.send(`petId=${petId}&updatedValue=${encodeURIComponent(updatedValue)}`);
         });
       });
+    </script>
+
+    <script>
+      function confirmDelete(petName) {
+        return confirm("Are you sure you want to delete '" + petName + "'?");
+      }
     </script>
 
   <?php else : ?>

@@ -131,6 +131,7 @@ textarea {
 
 .card-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -141,4 +142,29 @@ textarea {
   padding: 10px;
   margin: 10px;
   width: 200px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+.btn {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.confirmation-message {
+  background-color: #008000;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
 }
