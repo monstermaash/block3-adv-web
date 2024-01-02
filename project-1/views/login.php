@@ -1,3 +1,5 @@
 <h4>Logged in</h4>
 
-<a href="index.php?controller=dashboard">Dashboard</a>
+<p>Click below to visit the <span>dashboard</span></p>
+
+<p><a class="btn" href="index.php?controller=dashboard">Dashboard</a></p>

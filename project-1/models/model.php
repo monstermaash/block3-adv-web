@@ -38,7 +38,20 @@ class userModel
 
     if ($mysqli) {
       $pets = [];
-      $result = $mysqli->query("SELECT * FROM pets");
+
+      // Modify the query to use SQL joins
+      $query = "
+            SELECT p.*, s.speciesName, b.breedType, sz.sizeName, f.furTypeName, ap.adoptionPrice
+            FROM pets p
+            JOIN species s ON p.speciesID = s.speciesID
+            JOIN breeds b ON p.breedID = b.breedID
+            JOIN size sz ON p.sizeID = sz.sizeID
+            JOIN furTypes f ON p.furTypeID = f.furTypeID
+            JOIN adoptionPricing ap ON p.adoptionPricingID = ap.adoptionPricingID
+            ORDER BY p.petID ASC
+        ";
+
+      $result = $mysqli->query($query);
 
       while ($row = $result->fetch_assoc()) {
         $pets[] = $row;
@@ -50,6 +63,7 @@ class userModel
       return false;
     }
   }
+
   public function insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)
   {
     $mysqli = $this->connect();
@@ -80,12 +94,12 @@ class userModel
       die('Could not connect to the database.');
     }
 
-    $query = "SELECT p.petID, p.petName, s.speciesName, b.breedType, p.gender, p.age, size.sizeName, furTypes.furTypeName, p.isVaccinated, p.isTrained, p.petDescription, ap.adoptionPrice
+    $query = "SELECT p.petID, p.petName, s.speciesName, b.breedType, p.gender, p.age, sz.sizeName, f.furTypeName, p.isVaccinated, p.isTrained, p.petDescription, ap.adoptionPrice
               FROM pets p
               INNER JOIN species s ON p.speciesID = s.speciesID
               INNER JOIN breeds b ON p.breedID = b.breedID
-              INNER JOIN size size ON p.sizeID = size.sizeID
-              INNER JOIN furTypes furTypes ON p.furTypeID = furTypes.furTypeID
+              INNER JOIN size sz ON p.sizeID = sz.sizeID
+              INNER JOIN furTypes f ON p.furTypeID = f.furTypeID
               INNER JOIN adoptionPricing ap ON p.adoptionPricingID = ap.adoptionPricingID
               WHERE p.petID = $petId";
 

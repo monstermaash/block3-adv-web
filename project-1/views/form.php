@@ -1,8 +1,3 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +99,7 @@ ini_set('display_errors', 1);
     </div> <!-- end row -->
   </div> <!-- end container -->
 
-  <p><a href="index.php?controller=dashboard">See all pets</a></p>
+  <p><a class="btn" href="index.php?controller=dashboard">See all pets</a></p>
 </body>
 
 </html>

@@ -1,18 +1,13 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
-
-<?php
 if (isset($_GET['message'])) {
   $message = urldecode($_GET['message']);
   echo "<h3 class='confirmation-message'>$message</h3>";
 }
 ?>
 
-<h1>Dashboard</h1>
+<h2>Dashboard</h2>
 
-<a href="index.php?controller=logout">Logout</a>
+<p><a class="btn" href="index.php?controller=logout">Logout</a></p>
 <section>
 
   <?php
@@ -22,23 +17,23 @@ if (isset($_GET['message'])) {
   }
   ?>
 
-  <h1>List of Pets Available for Adoption</h1>
+  <h3>List of Pets Available for Adoption</h3>
 
   <?php if ($pets) : ?>
     <div class="card-container">
       <?php foreach ($pets as $pet) : ?>
         <div class="card">
           <h2><?php echo $pet['petName']; ?></h2>
-          <p>Species: <?php echo $pet['speciesID']; ?></p>
-          <p>Breed: <?php echo $pet['breedID']; ?></p>
+          <p>Species: <?php echo $pet['speciesName']; ?></p>
+          <p>Breed: <?php echo $pet['breedType']; ?></p>
           <p>Gender: <?php echo $pet['gender']; ?></p>
           <p>Age: <?php echo $pet['age']; ?></p>
-          <p>Size: <?php echo $pet['sizeID']; ?></p>
-          <p>Fur Type: <?php echo $pet['furTypeID']; ?></p>
+          <p>Size: <?php echo $pet['sizeName']; ?></p>
+          <p>Fur Type: <?php echo $pet['furTypeName']; ?></p>
           <p>Vaccinated: <?php echo $pet['isVaccinated']; ?></p>
           <p>Trained: <?php echo $pet['isTrained']; ?></p>
           <p>Description: <?php echo $pet['petDescription']; ?></p>
-          <p>Adoption Price: <?php echo $pet['adoptionPricingID']; ?></p>
+          <p>Adoption Price: $<?php echo $pet['adoptionPrice']; ?></p>
 
           <div class="buttons">
             <p><a class="btn" href="index.php?controller=edit&petID=<?php echo $pet['petID']; ?>">Edit</a></p>
@@ -81,5 +76,5 @@ if (isset($_GET['message'])) {
     <!-- <p>No pets available for adoption at the moment.</p> -->
   <?php endif; ?>
 
-  <p><a href="index.php?controller=form">Add a New Pet</a></p>
+  <p><a class="btn" href="index.php?controller=form">Add a New Pet</a></p>
 </section>

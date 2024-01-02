@@ -2,4 +2,4 @@
 
 <p>Thank you for visiting <span>Pet this!</span></p>
 
-<a href="index.php?controller=home">Back to Welcome Page</a>
+<p><a class="btn" href="index.php?controller=home">Back to Welcome Page</a></p>
