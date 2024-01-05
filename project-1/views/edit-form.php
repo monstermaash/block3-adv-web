@@ -109,16 +109,16 @@ if ($pet) {
 
     <label for="isTrained">Trained:</label>
     <select name="isTrained" id="trained" required>
-      <option value="">Select Trained</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
+      <option value="">Select Training Status</option>
+      <option value="Yes">Trained</option>
+      <option value="No">Not Trained</option>
     </select>
 
     <label for="isVaccinated">Vaccinated:</label>
     <select name="isVaccinated" id="vaccinated" required>
-      <option value="">Select Trained</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
+      <option value="">Select Vaccination Status</option>
+      <option value="Yes">Vaccinated</option>
+      <option value="No">Not Vaccinated</option>
     </select>
 
     <label for="description">Description:</label>
