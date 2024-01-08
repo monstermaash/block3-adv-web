@@ -41,12 +41,10 @@ class Controller
       $petDescription = $_POST['petDescription'];
       $adoptionPrice = $_POST['adoptionPricingID'];
 
-      // Validate form data
       if (empty($petName) || empty($species) || empty($breed) || empty($gender) || empty($isVaccinated) || empty($age) || empty($isTrained) || empty($size) || empty($furType) || empty($petDescription) || empty($adoptionPrice)) {
         throw new Exception('Missing information in form data.');
       }
 
-      // Call the model method to insert pet
       if ($this->model->insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)) {
         $message = "$petName added successfully!";
         header("Location: index.php?controller=dashboard&message=" . urlencode($message));
@@ -66,7 +64,6 @@ class Controller
   }
   public function update($petId)
   {
-    // Get the updated data from the form
     $updatedPetName = $_POST['petName'];
     $updatedSpecies = $_POST['speciesID'];
     $updatedBreed = $_POST['breedID'];
@@ -79,7 +76,6 @@ class Controller
     $updatedPetDescription = $_POST['petDescription'];
     $updatedAdoptionPrice = $_POST['adoptionPricingID'];
 
-    // Call the model method to update the pet
     $success = $this->model->updatePet(
       $petId,
       $updatedPetName,

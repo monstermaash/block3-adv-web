@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- currently not being used -->
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet store</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
+<h4>this is the home page</h4>
 
-<body>
-  <?php if ($pets) : ?>
+<!-- <?php if ($pets) : ?>
     <div class="card-container">
       <?php foreach ($pets as $pet) : ?>
         <div class="card">
@@ -18,18 +11,15 @@
           <p>Breed: <?php echo $pet['breedID']; ?></p>
           <p>Gender: <?php echo $pet['gender']; ?></p>
           <p>Age: <?php echo $pet['age']; ?></p>
-          <p>Size: <?php echo $pet['size']; ?></p>
-          <p>Fur Type: <?php echo $pet['furType']; ?></p>
+          <p>Size: <?php echo $pet['sizeID']; ?></p>
+          <p>Fur Type: <?php echo $pet['furTypeID']; ?></p>
           <p>Vaccinated: <?php echo $pet['isVaccinated']; ?></p>
           <p>Trained: <?php echo $pet['isTrained']; ?></p>
           <p>Description: <?php echo $pet['petDescription']; ?></p>
-          <p>Adoption Price: <?php echo $pet['adoptionPrice']; ?></p>
+          <p>Adoption Price: <?php echo $pet['adoptionPricingID']; ?></p>
         </div>
       <?php endforeach; ?>
     </div>
   <?php else : ?>
     <p>No pets available for adoption at the moment.</p>
-  <?php endif; ?>
-</body>
-
-</html>
+  <?php endif; ?> -->

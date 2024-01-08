@@ -30,7 +30,6 @@ if ($pet) {
 
     echo $updatedSize = $_POST['sizeID'];
 
-    // Call the model method to update the pet
     $success = $controller->update(
       $_GET['petID'],
       $updatedPetName,
@@ -47,7 +46,6 @@ if ($pet) {
     );
 
     if ($success) {
-      // Redirect to the dashboard if the update was successful
       header('Location: index.php?controller=dashboard');
       exit();
     } else {

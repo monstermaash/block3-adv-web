@@ -39,7 +39,6 @@ class userModel
     if ($mysqli) {
       $pets = [];
 
-      // Modify the query to use SQL joins
       $query = "
             SELECT p.*, s.speciesName, b.breedType, sz.sizeName, f.furTypeName, ap.adoptionPrice
             FROM pets p
@@ -156,14 +155,11 @@ class userModel
 
       error_log("SizeID to be updated: " . $updatedSize);
 
-      // Execute the statement and check for errors
       if (!$stmt->execute()) {
-        $error = $stmt->error; // Get the error message
+        $error = $stmt->error;
 
-        // Log or handle the error as needed
         error_log("Error executing updatePet query: $error");
 
-        // Output the error for debugging purposes (remove in production)
         echo "Error executing updatePet query: $error";
 
         $stmt->close();
