@@ -1,13 +1,3 @@
-<?php
-
-include_once 'controllers/controller.php';
-include_once 'models/model.php';
-
-$connection = new connectionObject("localhost", "petstore_db_user", "5bJ94ht4~", "petstore_db");
-$controller = new Controller($connection);
-
-?>
-
 <h1>Edit Pet</h1>
 
 <?php

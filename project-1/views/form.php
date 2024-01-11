@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add a Pet!</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-
-<body>
   <h1>Add a New Furry Friend</h1>
   <div class="container">
     <div class="row">
@@ -100,9 +89,6 @@
   </div> <!-- end container -->
 
   <p><a class="btn" href="index.php?controller=dashboard">See all pets</a></p>
-</body>
-
-</html>
 
 
-<!-- <?php echo isset($_POST['petName']) ? $_POST['petName'] : ""; ?> -->
+  <!-- <?php echo isset($_POST['petName']) ? $_POST['petName'] : ""; ?> -->
