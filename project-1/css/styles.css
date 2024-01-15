@@ -1,4 +1,4 @@
-*{ 
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,7 +11,11 @@ body {
   background-color: aquamarine;
 }
 
-h1, h2, h3, h4, p {
+h1,
+h2,
+h3,
+h4,
+p {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -103,6 +107,10 @@ input[type="radio"] {
   transform: translateY(20px);
 }
 
+input[type="submit"] {
+  cursor: pointer;
+}
+
 .submit-btn {
   background-color: #333;
   color: #fff;
@@ -124,6 +132,14 @@ a {
   font-size: 14px;
   margin-top: 20px;
   text-align: center;
+}
+
+img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 10px auto 40px;
 }
 
 textarea {
@@ -195,10 +211,64 @@ textarea {
   background-color: #444;
 }
 
-.confirmation-message {
+/* modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#deleteModal {
+  display: none;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 100%;
+  height: 200px;
+}
+
+.modal-content button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+
+  display: flex;
+  padding: 10px 20px;
+  margin: 45px auto 0 auto;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+
+/* .confirmation-message {
   background-color: #008000;
   color: white;
   font-weight: bold;
   padding: 15px;
   text-align: center;
-}
+} */

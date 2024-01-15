@@ -33,19 +33,56 @@ class Controller
       $species = $_POST['speciesID'];
       $breed = $_POST['breedID'];
       $gender = $_POST['gender'];
-      $isVaccinated = isset($_POST['isVaccinated']) ? 'Yes' : 'No';
+      $isVaccinated = $_POST['isVaccinated'];
       $age = $_POST['age'];
       $isTrained = $_POST['isTrained'];
       $size = $_POST['sizeID'];
       $furType = $_POST['furTypeID'];
       $petDescription = $_POST['petDescription'];
       $adoptionPrice = $_POST['adoptionPricingID'];
+      $petImage = $_POST['petImage'];
 
-      if (empty($petName) || empty($species) || empty($breed) || empty($gender) || empty($isVaccinated) || empty($age) || empty($isTrained) || empty($size) || empty($furType) || empty($petDescription) || empty($adoptionPrice)) {
+
+      $petImage = '';
+      if (!empty($_FILES['petImage']['name'])) {
+        $targetDir = "uploads/";
+        if (!file_exists($targetDir)) {
+          mkdir($targetDir, 0777, true);
+        }
+        $targetFile = $targetDir . basename($_FILES['petImage']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+        $check = getimagesize($_FILES['petImage']['tmp_name']);
+        if ($check === false) {
+          throw new Exception("File is not an image.");
+        }
+
+        if (file_exists($targetFile)) {
+          throw new Exception("Sorry, file already exists.");
+        }
+
+        if ($_FILES['petImage']['size'] > 500000) {
+          throw new Exception("Sorry, your file is too large.");
+        }
+
+        $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($imageFileType, $allowedFormats)) {
+          throw new Exception("Sorry, only JPG, JPEG, PNG, and GIF files are allowed.");
+        }
+
+        if (move_uploaded_file($_FILES['petImage']['tmp_name'], $targetFile)) {
+          $petImage = $targetFile;
+        } else {
+          throw new Exception("Sorry, there was an error uploading your file.");
+        }
+      }
+
+      if (empty($petName) || empty($species) || empty($breed) || empty($gender) || empty($isVaccinated) || empty($age) || empty($isTrained) || empty($size) || empty($furType) || empty($petDescription) || empty($adoptionPrice) || empty($petImage)) {
         throw new Exception('Missing information in form data.');
       }
 
-      if ($this->model->insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)) {
+      if ($this->model->insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice, $petImage)) {
         $message = "$petName added successfully!";
         header("Location: index.php?controller=dashboard&message=" . urlencode($message));
         exit();
@@ -68,13 +105,14 @@ class Controller
     $updatedSpecies = $_POST['speciesID'];
     $updatedBreed = $_POST['breedID'];
     $updatedGender = $_POST['gender'];
-    $isVaccinatedUpdate = isset($_POST['isVaccinated']) ? 'Yes' : 'No';
+    $isVaccinatedUpdate = $_POST['isVaccinated'];
     $updatedAge = $_POST['age'];
     $isTrainedUpdate = $_POST['isTrained'];
     $updatedSize = $_POST['sizeID'];
     $updatedFurType = $_POST['furTypeID'];
     $updatedPetDescription = $_POST['petDescription'];
     $updatedAdoptionPrice = $_POST['adoptionPricingID'];
+    $updatedPetImage = $_POST['petImage'];
 
     $success = $this->model->updatePet(
       $petId,
@@ -88,7 +126,8 @@ class Controller
       $updatedSize,
       $updatedFurType,
       $updatedPetDescription,
-      $updatedAdoptionPrice
+      $updatedAdoptionPrice,
+      $updatedPetImage
     );
 
     if ($success) {

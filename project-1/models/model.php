@@ -63,20 +63,20 @@ class userModel
     }
   }
 
-  public function insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice)
+  public function insertPet($petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice, $petImage)
   {
     $mysqli = $this->connect();
     if (!$mysqli) {
       die('Could not connect to the database.');
     }
 
-    $query = "INSERT INTO pets (petName, speciesID, breedID, gender, isVaccinated, age, isTrained, sizeID, furTypeID, petDescription, adoptionPricingID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO pets (petName, speciesID, breedID, gender, isVaccinated, age, isTrained, sizeID, furTypeID, petDescription, adoptionPricingID, petImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($query);
     if (!$stmt) {
       die('Error in prepared statement: ' . htmlspecialchars($mysqli->error));
     }
 
-    $stmt->bind_param('siissisiisi', $petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice);
+    $stmt->bind_param('siissisiisis', $petName, $species, $breed, $gender, $isVaccinated, $age, $isTrained, $size, $furType, $petDescription, $adoptionPrice, $petImage);
     if ($stmt->execute()) {
       $mysqli->close();
       return true;

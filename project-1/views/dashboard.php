@@ -1,10 +1,3 @@
-<?php
-if (isset($_GET['message'])) {
-  $message = urldecode($_GET['message']);
-  echo "<h3 class='confirmation-message'>$message</h3>";
-}
-?>
-
 <h2>Dashboard</h2>
 
 <p><a class="btn" href="index.php?controller=logout">Logout</a></p>
@@ -24,6 +17,13 @@ if (isset($_GET['message'])) {
       <div class="card-container">
         <?php foreach ($pets as $pet) : ?>
           <div class="card">
+
+            <?php
+            $imageData = base64_encode($pet['petImage']);
+            $imageSrc = "data:image/jpeg;base64," . $imageData;
+            ?>
+
+            <img class="pet-image" src="<?php echo $imageSrc; ?>" alt="Pet Image">
             <h2><?php echo $pet['petName']; ?></h2>
             <p><?php echo $pet['petDescription']; ?></p>
             <hr>
@@ -40,7 +40,8 @@ if (isset($_GET['message'])) {
             </div>
             <div class="buttons">
               <p><a class="btn" href="index.php?controller=edit&petID=<?php echo $pet['petID']; ?>">Edit</a></p>
-              <p><a class="btn" href="index.php?controller=delete&petID=<?php echo $pet['petID']; ?>" onclick="return confirmDelete('<?php echo $pet['petName']; ?>');">Delete</a></p>
+              <p><a class="btn" href="#" onclick="return confirmDelete('<?php echo $pet['petName']; ?>', <?php echo $pet['petID']; ?>);">Delete</a></p>
+
             </div>
 
           </div>
@@ -70,15 +71,48 @@ if (isset($_GET['message'])) {
     });
   </script>
 
-  <script>
-    function confirmDelete(petName) {
-      return confirm("Are you sure you want to delete '" + petName + "'?");
-    }
-  </script>
 
 <?php else : ?>
   <!-- <p>No pets available for adoption at the moment.</p> -->
 <?php endif; ?>
 
 <p><a class="btn" href="index.php?controller=form">Add a New Pet</a></p>
+
+
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Delete Confirmation</h2>
+    <p id="deleteConfirmationText"></p>
+    <button onclick="deletePet()">Delete</button>
+  </div>
+</div>
+
+
+<script>
+  function confirmDelete(petName, petID) {
+    const confirmationText = `Are you sure you want to delete '${petName}'?`;
+    document.getElementById('deleteConfirmationText').innerText = confirmationText;
+    showModal();
+    document.getElementById('deleteModal').setAttribute('data-pet-id', petID);
+
+    return false;
+  }
+
+  function showModal() {
+    document.getElementById('deleteModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+  }
+
+  function deletePet() {
+    const petID = document.getElementById('deleteModal').getAttribute('data-pet-id');
+    window.location.href = `index.php?controller=delete&petID=${petID}`;
+  }
+</script>
+
+
+
 </section>
