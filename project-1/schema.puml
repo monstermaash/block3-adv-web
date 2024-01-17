@@ -1,0 +1,134 @@
+@startuml
+
+class Species {
+  + speciesID: int
+  + speciesName: string
+  + __construct(speciesID: int, speciesName: string)
+  + getSpeciesID(): int
+  + getSpeciesName(): string
+}
+
+
+class Breeds {
+  + breedID: int (primary key)
+  + breedType: string
+  + speciesID: int (foreign key)
+  + breedDescription: string 
+  + getBreedID(): int
+  + getBreedType(): string
+  + getSpeciesID(): int
+  + getBreedDescription(): string 
+}
+
+class Size {
+  + sizeID: int
+  + sizeName: string
+  + sizeDescription: string 
+  + getSizeID(): int
+  + getSizeName(): string
+  + getSizeDescription(): string 
+}
+
+class FurType {
+  + furSizeID: int
+  + furTypeName: string
+  + furTypeDescription: string 
+  + sheddingLevel: string 
+  + getFurSizeID(): int
+  + getFurTypeName(): string
+  + getFurTypeDescription(): string 
+  + getSheddingLevel(): string 
+}
+
+class Pets {
+  + petID: int
+  + petName: string
+  + breedType: string
+  + speciesID: int
+  + age: int
+  + gender: string
+  + petDescription: string
+  + adoptionPricing: AdoptionPricing
+  + isVaccinated: bool
+  + isTrained: bool
+  + size: Size
+  + furType: FurType
+  + __construct(petID: int, petName: string, breedType: string, speciesID: int, age: int, gender: string, petDescription: string, adoptionPricing: AdoptionPricing, isVaccinated: bool, isTrained: bool, size: Size, furType: FurType)
+  + getPetID(): int
+  + getPetName(): string
+  + getBreedType(): string
+  + getSpeciesID(): int
+  + getAge(): int
+  + getGender(): string
+  + getPetDescription(): string
+  + getAdoptionPricing(): AdoptionPricing
+  + getIsVaccinated(): bool
+  + getIsTrained(): bool
+  + getSize(): Size
+  + getFurType(): FurType
+}
+
+class Animal {
+  + eat()
+  + sleep()
+  + play()
+  + run()
+}
+
+class Dog extends Pets, Animal {
+  + size: Size
+  + bark()
+  + fetch()
+  + swim()
+}
+
+class Cat extends Pets, Animal {
+  + furType: FurType
+  + meow()
+  + playWithToy()
+}
+
+class Duck extends Pets, Animal {
+  + featherColor: string
+  + quack()
+  + swim()
+  + fly()
+}
+
+class Toys {
+  + toyID: int
+  + toyName: string
+  + toyDescription: string
+  + applicableSpecies: Toys
+  + toysPrice: ToyPricing
+  + __construct(toyID: int, toyName: string, toyDescription: string, applicableSpecies: Toys, toysPrice: ToyPricing)
+  + getToyID(): int
+  + getToyName(): string
+  + getToyDescription(): string
+  + getApplicableSpecies(): Toys
+  + getToysPrice(): ToyPricing
+}
+
+class ToyPricing {
+  + toyPricingID: int
+  + toyPrice: float
+  + setToyPrice(toyPrice: float)
+  + getToyPrice(): float
+}
+
+class AdoptionPricing {
+  + adoptionPricingID: int
+  + adoptionPrice: float
+  + setAdoptionPrice(adoptionPrice: float)
+  + getAdoptionPrice(): float
+}
+
+
+Species <|-- Toys
+Species --|> Breeds
+Breeds --|> Pets
+
+AdoptionPricing --|> Pricing
+ToyPricing --|> Pricing
+
+@enduml

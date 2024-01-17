@@ -1,0 +1,28 @@
+@startuml
+
+  class Idcard {
+    #name
+    #dob
+    #address
+    #expiration
+    +__construct()
+    +present()
+    +renew()
+    +update()
+    +cancel()    
+  }
+
+  class DriversLicense extends Idcard {
+    #classType
+    #points
+    +isValid()
+    +viewPoints()
+    +reprimand()
+    +payFees()
+    +setType()
+    +setExpiration()
+    +renew()
+  }
+
+
+@enduml
