@@ -8,20 +8,22 @@ include_once 'models/model.php';
 class Controller
 {
   private $model;
+
   public function __construct($connection)
   {
     $this->model = new userModel($connection);
   }
+
   public function showPets()
   {
-    // $pets = $this->model->selectAllPets();
-    // include 'views/home.php';
     return $this->model->selectAllPets();
   }
+
   public function showForm()
   {
     include 'views/form.php';
   }
+
   public function add()
   {
     try {
@@ -40,15 +42,16 @@ class Controller
       $furType = $_POST['furTypeID'];
       $petDescription = $_POST['petDescription'];
       $adoptionPrice = $_POST['adoptionPricingID'];
-      $petImage = $_POST['petImage'];
 
+      $petImage = ''; // Initialize variable to store file path
 
-      $petImage = '';
       if (!empty($_FILES['petImage']['name'])) {
         $targetDir = "uploads/";
+
         if (!file_exists($targetDir)) {
           mkdir($targetDir, 0777, true);
         }
+
         $targetFile = $targetDir . basename($_FILES['petImage']['name']);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -58,9 +61,9 @@ class Controller
           throw new Exception("File is not an image.");
         }
 
-        if (file_exists($targetFile)) {
-          throw new Exception("Sorry, file already exists.");
-        }
+        // if (file_exists($targetFile)) {
+        //   throw new Exception("Sorry, file already exists.");
+        // }
 
         if ($_FILES['petImage']['size'] > 500000) {
           throw new Exception("Sorry, your file is too large.");
@@ -94,51 +97,90 @@ class Controller
       echo var_dump($e);
     }
   }
+
   public function editForm($petId)
   {
     $pet = $this->model->selectPetById($petId);
     include 'views/edit-form.php';
   }
+
   public function update($petId)
   {
-    $updatedPetName = $_POST['petName'];
-    $updatedSpecies = $_POST['speciesID'];
-    $updatedBreed = $_POST['breedID'];
-    $updatedGender = $_POST['gender'];
-    $isVaccinatedUpdate = $_POST['isVaccinated'];
-    $updatedAge = $_POST['age'];
-    $isTrainedUpdate = $_POST['isTrained'];
-    $updatedSize = $_POST['sizeID'];
-    $updatedFurType = $_POST['furTypeID'];
-    $updatedPetDescription = $_POST['petDescription'];
-    $updatedAdoptionPrice = $_POST['adoptionPricingID'];
-    $updatedPetImage = $_POST['petImage'];
+    try {
+      $currentPetImage = $this->model->selectPetById($petId)['petImage'];
 
-    $success = $this->model->updatePet(
-      $petId,
-      $updatedPetName,
-      $updatedSpecies,
-      $updatedBreed,
-      $updatedGender,
-      $isVaccinatedUpdate,
-      $updatedAge,
-      $isTrainedUpdate,
-      $updatedSize,
-      $updatedFurType,
-      $updatedPetDescription,
-      $updatedAdoptionPrice,
-      $updatedPetImage
-    );
+      $updatedPetName = $_POST['petName'];
+      $updatedSpecies = $_POST['speciesID'];
+      $updatedBreed = $_POST['breedID'];
+      $updatedGender = $_POST['gender'];
+      $isVaccinatedUpdate = $_POST['isVaccinated'];
+      $updatedAge = $_POST['age'];
+      $isTrainedUpdate = $_POST['isTrained'];
+      $updatedSize = $_POST['sizeID'];
+      $updatedFurType = $_POST['furTypeID'];
+      $updatedPetDescription = $_POST['petDescription'];
+      $updatedAdoptionPrice = $_POST['adoptionPricingID'];
 
-    if ($success) {
-      $petName = $this->model->selectPetById($petId)['petName'];
-      $message = "$petName updated successfully!";
-      header("Location: index.php?controller=dashboard&message=" . urlencode($message));
-      exit();
-    } else {
-      echo 'Update failed.';
+      $updatedPetImage = '';
+      if (!empty($_FILES['petImage']['name'])) {
+
+        $existingImagePath = $this->model->selectPetById($petId)['petImage'];
+        // if (!empty($existingImagePath)) {
+        unlink($existingImagePath);
+        // }
+
+        $targetDir = "uploads/";
+        $targetFile = $targetDir . basename($_FILES['petImage']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+        $check = getimagesize($_FILES['petImage']['tmp_name']);
+        if ($check === false) {
+          throw new Exception('File is not an image.');
+        } else {
+          if (move_uploaded_file($_FILES['petImage']['tmp_name'], $targetFile)) {
+            $updatedPetImage = $targetFile;
+          } else {
+            throw new Exception('Sorry, there was an error uploading your file.');
+          }
+        }
+      }
+
+      if (!empty($currentPetImage) && file_exists($currentPetImage)) {
+        unlink($currentPetImage);
+      }
+
+      $success = $this->model->updatePet(
+        $petId,
+        $updatedPetName,
+        $updatedSpecies,
+        $updatedBreed,
+        $updatedGender,
+        $isVaccinatedUpdate,
+        $updatedAge,
+        $isTrainedUpdate,
+        $updatedSize,
+        $updatedFurType,
+        $updatedPetDescription,
+        $updatedAdoptionPrice,
+        $updatedPetImage
+      );
+
+      if ($success) {
+        $petName = $this->model->selectPetById($petId)['petName'];
+        $message = "$petName updated successfully!";
+        header("Location: index.php?controller=dashboard&message=" . urlencode($message));
+        exit();
+      } else {
+        throw new Exception('Update failed.');
+      }
+    } catch (Exception $e) {
+      echo $e->getMessage();
+      echo var_dump($e);
     }
   }
+
+
   public function delete($petId)
   {
     $petName = $this->model->selectPetById($petId)['petName'];
@@ -165,10 +207,6 @@ if (isset($_POST['petName']) && isset($_GET['petID'])) {
   $controller->delete($_GET['petID']);
 }
 
-?>
-
-<?php
-
 if (!isset($_GET['controller']) || $_GET['controller'] == "home") {
   include("views/welcome.php");
 } elseif ($_GET['controller'] == "login") {
@@ -185,5 +223,3 @@ if (!isset($_GET['controller']) || $_GET['controller'] == "home") {
 } else {
   include("views/404.php");
 }
-
-?>

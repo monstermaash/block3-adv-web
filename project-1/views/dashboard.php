@@ -23,7 +23,7 @@
             $imageSrc = "data:image/jpeg;base64," . $imageData;
             ?>
 
-            <img class="pet-image" src="<?php echo $imageSrc; ?>" alt="Pet Image">
+            <img src="<?php echo $pet['petImage']; ?>" alt="Pet Image">
             <h2><?php echo $pet['petName']; ?></h2>
             <p><?php echo $pet['petDescription']; ?></p>
             <hr>
